@@ -21,13 +21,39 @@ def count_chars(text):
     return character_dict
 
 
+def sort_on(dict):
+    return dict["num"]
+
+
+def get_book_report(book_path, char_dict):
+
+    char_list = []
+    text = get_book_text(book_path)
+    num_words = get_num_words(text)
+
+    print(f"--- Begin report of {book_path} ---")
+    print(f"{num_words} words found in the document\n")
+
+    for char in char_dict:
+        if char.isalpha():
+            char_list.append({"name": char,
+                              "num": char_dict[char]})
+            
+    char_list.sort(reverse=True, key=sort_on)
+
+    for char in char_list:
+        print(f"The {char['name']} character was found {char['num']} times")
+    
+    print("--- End report ---")
+
+
 def main():
 
-    book_path = "./books/frankenstein.txt"
+    book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
     num_words = get_num_words(text)
     characters = count_chars(text)
-    print(characters)
+    get_book_report(book_path, characters)
 
     
 
